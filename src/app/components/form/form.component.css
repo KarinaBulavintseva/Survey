@@ -1,0 +1,64 @@
+.form-wrapper {
+  background-color: #ececec79;
+}
+
+.title {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: rgb(103, 58, 183);
+}
+
+.form {
+  padding: 8px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.mat-mdc-form-field-infix {
+  width: 100%;
+}
+
+.hobby-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.delete-hobby {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-remove-hobby {
+  background-color: transparent;
+  border: none;
+  font-size: 1.2rem;
+  color: rgb(80, 80, 80);
+}
+
+.btn-add-hobby {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (min-width: 600px) {
+  .hobby-fields {
+    flex-direction: row;
+  }
+
+  .form {
+    padding: 15px 30px;
+  }
+}

@@ -1,0 +1,142 @@
+<div class="form-wrapper">
+  <div class="title">Survey Form</div>
+  <form
+    class="form"
+    autocomplete="off"
+    [formGroup]="surveyForm"
+    (ngSubmit)="onSubmit()"
+    #formDirective="ngForm"
+  >
+    <mat-form-field class="field">
+      <mat-label>Username</mat-label>
+      <input matInput placeholder="Enter username" formControlName="username" />
+      <mat-error *ngIf="surveyForm.get('username')?.hasError('required')"
+        >This field is required</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field class="field">
+      <mat-label>Surname</mat-label>
+      <input matInput placeholder="Enter surname" formControlName="surname" />
+      <mat-error *ngIf="surveyForm.get('surname')?.hasError('required')"
+        >This field is required</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field class="field">
+      <mat-label>Birthdate</mat-label>
+      <input formControlName="birthdate" matInput [matDatepicker]="picker" />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="surveyForm.get('birthdate')?.hasError('required')"
+        >This field is required</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field class="field">
+      <mat-label>Framework</mat-label>
+      <mat-select formControlName="framework">
+        <mat-option *ngFor="let framework of frameworks" [value]="framework">
+          {{ framework | capitalize }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="surveyForm.get('framework')?.hasError('required')"
+        >This field is required</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field class="field">
+      <mat-label>Framework version</mat-label>
+      <mat-select formControlName="version">
+        <mat-option *ngFor="let version of frameworkVersions" [value]="version">
+          {{ version }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="surveyForm.get('version')?.hasError('required')"
+        >This field is required</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field class="field">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Enter email" formControlName="email" />
+      <mat-error *ngIf="surveyForm.get('email')?.hasError('required')"
+        >This field is required</mat-error
+      >
+      <mat-error *ngIf="surveyForm.get('email')?.hasError('email')"
+        >Enter correct email</mat-error
+      >
+      <mat-error
+        *ngIf="surveyForm.get('email')?.hasError('userEmailAlreadyExists')"
+        >This email already exists</mat-error
+      >
+    </mat-form-field>
+
+    <ng-container
+      formGroupName="hobby"
+      *ngFor="let hobbyControl of hobby().controls; let i = index"
+    >
+      <div [formGroupName]="i">
+        <div *ngIf="i !== 0" class="delete-hobby">
+          <button
+            class="btn-remove-hobby"
+            title="Click to remove"
+            type="button"
+            (click)="removeHobby(i)"
+          >
+            &times;
+          </button>
+        </div>
+
+        <div class="hobby-fields">
+          <mat-form-field class="field">
+            <mat-label>Hobby</mat-label>
+            <input matInput placeholder="Enter hobby" formControlName="name" />
+            <mat-error *ngIf="hobbyControl.get('name')?.hasError('required')"
+              >This field is required</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field class="field">
+            <mat-label>Duration</mat-label>
+            <input
+              matInput
+              placeholder="Enter duration"
+              formControlName="duration"
+            />
+            <mat-error
+              *ngIf="hobbyControl.get('duration')?.hasError('required')"
+              >This field is required</mat-error
+            >
+          </mat-form-field>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="btn-add-hobby">
+      <button
+        mat-button
+        color="primary"
+        type="button"
+        [disabled]="this.isHobbiesArrayHasMaxLength"
+        (click)="onAddHobby()"
+      >
+        Add hobby
+      </button>
+    </div>
+    <div>
+      <button
+        mat-button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        [disabled]="!surveyForm.valid"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</div>
